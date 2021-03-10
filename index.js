@@ -6,7 +6,7 @@ const ip = require("ip");
 const STATIC_FOLDER = path.join(__dirname, "static");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env["PORT"] || 3000;
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {});
 

@@ -3,7 +3,7 @@ const socket = io();
 let ctx = {};
 
 const RANDOM_NICKNAMES = {
-  adjective: [
+  adjectives: [
     "déshydraté",
     "chanceux",
     "touffu",
@@ -13,7 +13,7 @@ const RANDOM_NICKNAMES = {
     "gentil",
     "impatient",
   ],
-  name: [
+  names: [
     "ours",
     "cheval",
     "dinosaure",
@@ -26,10 +26,10 @@ const RANDOM_NICKNAMES = {
 };
 
 function generateRandomName() {
-  const nameidx = Math.floor(Math.random() * RANDOM_NICKNAMES.name.length);
-  const adjidx = Math.floor(Math.random() * RANDOM_NICKNAMES.adjective.length);
+  const nameidx = Math.floor(Math.random() * RANDOM_NICKNAMES.names.length);
+  const adjidx = Math.floor(Math.random() * RANDOM_NICKNAMES.adjectives.length);
 
-  return `${RANDOM_NICKNAMES.name[nameidx]} ${RANDOM_NICKNAMES.adjective[adjidx]}`;
+  return `${RANDOM_NICKNAMES.names[nameidx]} ${RANDOM_NICKNAMES.adjectives[adjidx]}`;
 }
 // we use a function so that there is some realtime computations
 const BOTTOM_BAR = {
