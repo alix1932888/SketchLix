@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("reset", () => {
+   shapes = [];
    for (const socket of Object.values(clients))
    {
      socket.emit("reset");
