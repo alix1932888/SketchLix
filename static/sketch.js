@@ -84,6 +84,9 @@ const REQ_MAP = {
     drawShape(x, y, size, color, BOTTOM_BAR[shape]().onDraw);
     $("#nickname-box").text(nickname);
   },
+  reset: () =>{
+    clear();
+  }
 };
 
 const COLOR_BAR = [
