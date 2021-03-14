@@ -55,6 +55,12 @@ io.on("connection", (socket) => {
       notifyClients(shape);
     }
   });
+  socket.on("reset", () => {
+   for (const socket of Object.values(clients))
+   {
+     socket.emit("reset");
+    }
+  });
 });
 
 /* serve the static sketch page */
