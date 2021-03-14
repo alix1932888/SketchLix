@@ -77,6 +77,14 @@ const BOTTOM_BAR = {
         rect(x - size / 2, y - size / 2, size, size, size / 10),
     };
   },
+  clear : () => {
+    return{
+      html: `<div />`,
+      startup: () => {
+        socket.emit("reset");
+      },
+    }
+  }
 };
 
 const REQ_MAP = {
