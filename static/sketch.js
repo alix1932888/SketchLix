@@ -85,7 +85,7 @@ const REQ_MAP = {
     $("#nickname-box").text(nickname);
   },
   reset: () =>{
-    clear();
+    window.location.reload();
   }
 };
 
