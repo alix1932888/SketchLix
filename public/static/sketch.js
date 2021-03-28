@@ -8,7 +8,7 @@ const RANDOM_NICKNAMES = {
     "chanceux",
     "touffu",
     "déjanté",
-    "alléchant",
+    "légendaire",
     "tumultueux",
     "gentil",
     "impatient",
@@ -57,14 +57,14 @@ const BOTTOM_BAR = {
   circle: () => {
     return {
       html: `<div />`,
-      startup: () => {},
+      startup: () => { },
       onDraw: (x, y, size) => circle(x, y, size),
     };
   },
   triangle: () => {
     return {
       html: `<div />`,
-      startup: () => {},
+      startup: () => { },
       onDraw: (x, y, size) =>
         triangle(x - size, y + size / 2, x + size, y + size / 2, x, y - size),
     };
@@ -72,19 +72,48 @@ const BOTTOM_BAR = {
   rectangle: () => {
     return {
       html: `<div />`,
-      startup: () => {},
+      startup: () => { },
       onDraw: (x, y, size) =>
         rect(x - size / 2, y - size / 2, size, size, size / 10),
     };
   },
-  clear : () => {
-    return{
+  clear: () => {
+    return {
       html: `<div />`,
       startup: () => {
         socket.emit("reset");
       },
     }
-  }
+  },
+  save: () => {
+    return {
+      html: `<div />`,
+      startup: () => {
+        const data = ctx.canvas.elt.toDataURL("image/png");
+        const formData = new FormData();
+        formData.append('username', $("#nickname-box-input").val());
+        formData.append('image', data);
+        fetch("/upload", {
+          method: 'POST',
+          body: formData
+        });
+        const element = document.getElementById('toast');
+        const toast = new bootstrap.Toast(element);
+        $("#toast").addClass("front");
+        toast.show();
+        $(`#zbtn-pencil`).click();
+      },
+    }
+  },
+  Saved_images: () => {
+    return {
+      html: `<div />`,
+      startup: () => {
+        window.open('/images', '_blank');
+        $(`#zbtn-pencil`).click();
+      },
+    }
+  },
 };
 
 const REQ_MAP = {
@@ -92,7 +121,7 @@ const REQ_MAP = {
     drawShape(x, y, size, color, BOTTOM_BAR[shape]().onDraw);
     $("#nickname-box").text(nickname);
   },
-  reset: () =>{
+  reset: () => {
     window.location.reload();
   }
 };
@@ -188,6 +217,7 @@ function setup() {
   const width = windowWidth * 0.7;
   const height = windowHeight * 0.7;
   const cnv = createCanvas(width, height);
+  ctx.canvas = cnv;
 
   cnv.position(windowWidth / 2 - width / 2, 30);
   setNickname();
@@ -218,3 +248,4 @@ function draw() {
     }
   }
 }
+
